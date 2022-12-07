@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./TaskList.css";
 
 const TaskList = ({ tasks }) => {
   return (
     <div className="task-lists">
       {tasks.map((task) => (
-        <div onClick={task.id} className="task">
+        <Link key={task.id} to={`/${task.id}`} className="task">
           <p>
             <strong>ID: </strong> {task.id}
           </p>
@@ -15,7 +16,7 @@ const TaskList = ({ tasks }) => {
           <p>
             <strong>Status: </strong> {String(task.completed)}
           </p>
-        </div>
+        </Link>
       ))}
     </div>
   );
