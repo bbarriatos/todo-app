@@ -1,23 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./TaskList.css";
 
-const TaskList = ({ tasks }) => {
+const TaskList = ({ task }) => {
   return (
     <div className="task-lists">
-      {tasks.length === 0 ? (
+      {task.length === 0 ? (
         <h2>No available task</h2>
       ) : (
-        tasks.map((task) => (
-          <Link key={task.id} to={`/${task.id}`} className="task">
+        task.map((taskInfo) => (
+          <Link key={taskInfo.id} to={`/${taskInfo.id}`} className="task">
             <p>
-              <strong>ID: </strong> {task.id}
+              <strong>ID: </strong> {taskInfo.id}
             </p>
             <p>
-              <strong>Title: </strong> {task.title}
+              <strong>Title: </strong> {taskInfo.title}
             </p>
             <p>
-              <strong>Status: </strong> {String(task.completed)}
+              <strong>Status: </strong> {String(taskInfo.completed)}
             </p>
           </Link>
         ))

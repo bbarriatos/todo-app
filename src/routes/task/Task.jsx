@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useContext } from "react";
 import TaskList from "../../components/task-lists/TaskList";
+import { TaskContext } from "../../context/TaskContext";
 
 const Task = () => {
-  const [tasks, setTasks] = useState([]);
+  const { tasks } = useContext(TaskContext);
 
-  const data = "https://jsonplaceholder.typicode.com/todos";
-
-  const getTaskLists = async () =>
-    await axios.get(data).then((task) => setTasks(task.data));
-
-  useEffect(() => {
-    getTaskLists();
-  }, []);
-
-  return <TaskList tasks={tasks}></TaskList>;
+  return <TaskList task={tasks}></TaskList>;
 };
 export default Task;
