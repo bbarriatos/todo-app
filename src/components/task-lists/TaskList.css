@@ -1,16 +1,16 @@
 .task-lists {
-    max-width: 400px;
+    width: 25%;
+    /* height: 100vh; */
     background: blue;
-    padding: 1em 0
+    padding: 0 0 1em;
 }
 
 .task-lists > .task {
-    display: inline-block;
+    display: block;
     background-color: #fff;
 }
 
 .task {
-    width: 300px;
     margin: 0.5em;
     padding: 1em;
 }
