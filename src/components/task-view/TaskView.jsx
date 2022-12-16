@@ -27,7 +27,7 @@ const TaskView = () => {
   });
 
   return (
-    <div className="task-view">
+    <div>
       {id === undefined ? (
         <h1>Click task to view</h1>
       ) : (
