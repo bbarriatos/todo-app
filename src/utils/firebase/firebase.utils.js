@@ -1,25 +1,15 @@
-import { uid } from "uid";
+// import { uid } from "uid";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
-import {
-  geFireStore,
-  doc,
-  setDoc,
-  getDoc,
-  getFirestore,
-  collection,
-} from "firebase/firestore";
+import { doc, setDoc, getDoc, getFirestore } from "firebase/firestore";
 
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://firebase.google.com/docs/web/learn-more#config-object
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAKlevchad9nz60QtvjTw52V6OkkvtQwTs",
   authDomain: "todo-3d05a.firebaseapp.com",
@@ -32,17 +22,16 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// // Initialize Firebase Authentication and get a reference to the service
-// const auth = getAuth(app);
-
 const provider = new GoogleAuthProvider();
 
 provider.setCustomParameters({
   prompt: "select_account",
 });
 
-export const auth = getAuth();
+export const auth = getAuth(app);
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+// export const signUpUser = () =>
+//   createUserWithEmailAndPassword(auth, email, password);
 
 export const db = getFirestore();
 

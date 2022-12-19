@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   signInWithGooglePopup,
   createUserDocument,
@@ -28,6 +29,7 @@ const LoginForm = () => {
       </form>
 
       <button onClick={logGoogleUser}>SignIn with Google Popup</button>
+      <Link to="/signup">Sign Up!</Link>
     </div>
   );
 };
