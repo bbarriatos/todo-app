@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  createUserDocument,
+  signUpUser,
+} from "../../utils/firebase/firebase.utils";
 
 const defaultFormFields = {
   displayName: "",
@@ -28,34 +32,49 @@ const SignUpForm = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // setValidationError(formValidationFields);
-    const { displayName, email, password, confirmPassword } = event.target;
+    const {
+      displayName: username,
+      email: user_email,
+      password: user_password,
+      confirmPassword,
+    } = event.target;
 
-    if (displayName.value == "") {
+    if (username.value == "") {
       setValidationError((errorFields) => ({
         ...errorFields,
         displayName: "Empty Username",
       }));
     }
 
-    if (email.value == "") {
+    if (user_email.value == "") {
       setValidationError((errorFields) => ({
         ...errorFields,
         email: "Empty Email",
       }));
     }
 
-    if (password.value !== confirmPassword.value) {
+    if (user_password.value != confirmPassword.value) {
       setValidationError((errorFields) => ({
         ...errorFields,
         password: "Password not match",
       }));
     }
 
-    return;
+    try {
+      const userMail = user_email.value;
+      const userPassword = user_password.value;
+      const { user } = await signUpUser(userMail, userPassword);
+
+      await createUserDocument(user, { displayName });
+      resetFormFields();
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const resetFormFields = () => setValidationError(formValidationFields);
 
   return (
     <div>
