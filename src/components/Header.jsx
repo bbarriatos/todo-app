@@ -12,8 +12,8 @@ const Header = () => {
   return (
     <Fragment>
       <header>
-        Header - User Panel - Add Button
-        <button onClick={addFormRedirect}>Add</button>
+        Header - User Panel - Add Button&nbsp;
+        <button onClick={addFormRedirect}>Add</button>&nbsp;
       </header>
       <div className="task-block">
         <Task></Task>

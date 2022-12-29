@@ -67,7 +67,7 @@ const SignUpForm = () => {
       const userPassword = user_password.value;
       const { user } = await signUpUser(userMail, userPassword);
 
-      await createUserDocument(user, { displayName });
+      await createUserDocument(user, { displayName: username.value });
       resetFormFields();
     } catch (error) {
       console.log(error);

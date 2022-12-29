@@ -1,23 +1,29 @@
 import "./App.css";
-import React, { Fragment } from "react";
+import React, { useContext, Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
-// import Header from "./components/Header";
-// import TaskView from "./components/task-view/TaskView";
-// import AddTask from "./routes/add-task/AddTask";
-import LoginForm from "./routes/login/LoginForm";
-import SignUpForm from "./routes/signup/SignUpForm";
+import Header from "./components/Header";
+import TaskView from "./components/task-view/TaskView";
+import AddTask from "./routes/add-task/AddTask";
+
+import { UserContext } from "./context/UserContext";
+import Authentication from "./routes/authentication/Authentication";
 
 function App() {
+  const { currentUser } = useContext(UserContext);
+
   return (
     <Fragment>
       <Routes>
-        <Route path="/" element={<LoginForm></LoginForm>}></Route>
-        <Route path="/signup" element={<SignUpForm></SignUpForm>}></Route>
-        {/* <Route path="/" element={<Header></Header>}>
+        <Route
+          path="/"
+          element={
+            currentUser ? <Header></Header> : <Authentication></Authentication>
+          }
+        >
           <Route index element={<TaskView></TaskView>}></Route>
           <Route path="/:id" element={<TaskView></TaskView>}></Route>
           <Route path="/addTask" element={<AddTask></AddTask>}></Route>
-        </Route> */}
+        </Route>
       </Routes>
     </Fragment>
   );

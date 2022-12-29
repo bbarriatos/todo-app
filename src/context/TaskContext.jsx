@@ -1,22 +1,23 @@
 import React, { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import { getTodoDocument } from "../utils/firebase/firebase.utils";
 
 export const TaskContext = createContext({
   tasks: [],
-  setTasks: () => null,
 });
 
 export const TaskProvider = ({ children }) => {
-  const [tasks, setTasks] = useState([]);
-  const value = { tasks, setTasks };
-  const data = "https://jsonplaceholder.typicode.com/todos";
-
-  const getTaskLists = async () =>
-    await axios.get(data).then((task) => setTasks(task.data));
+  const [task, setTasks] = useState({});
 
   useEffect(() => {
-    getTaskLists();
+    const todoList = async () => {
+      const lists = await getTodoDocument("todos");
+
+      setTasks(lists);
+    };
+    todoList();
   }, []);
+
+  const value = { task };
 
   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;
 };
