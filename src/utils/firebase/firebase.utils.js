@@ -24,12 +24,12 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAKlevchad9nz60QtvjTw52V6OkkvtQwTs",
-  authDomain: "todo-3d05a.firebaseapp.com",
-  projectId: "todo-3d05a",
-  storageBucket: "todo-3d05a.appspot.com",
-  messagingSenderId: "516322045577",
-  appId: "1:516322045577:web:190399620536cec36aa058",
+  apiKey: "AIzaSyAo47GUfoMBEE-uNMbEQ1YsCrE-NgfLq0w",
+  authDomain: "todo-53448.firebaseapp.com",
+  projectId: "todo-53448",
+  storageBucket: "todo-53448.appspot.com",
+  messagingSenderId: "814589486846",
+  appId: "1:814589486846:web:d825701e4e2d5185ea27af",
 };
 
 // Initialize Firebase
@@ -63,18 +63,15 @@ export const getTodoDocument = async (collectionKey) => {
   const ref = query(collection(db, collectionKey));
   const dataDoc = await getDocs(ref);
 
-  dataDoc.forEach((doc) => {
-    return doc.data();
+  let tasks = [];
+
+  dataDoc.docs.map((res) => {
+    let data = res.data();
+
+    tasks.push(data);
   });
 
-  const dataMap = dataDoc.docs.reduce((acc = [], docSnapshot) => {
-    const { id } = docSnapshot.data();
-    acc[id] = docSnapshot.data();
-
-    return acc;
-  }, {});
-
-  return dataMap;
+  return tasks;
 };
 
 export const createUserDocument = async (

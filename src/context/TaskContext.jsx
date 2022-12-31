@@ -3,10 +3,12 @@ import { getTodoDocument } from "../utils/firebase/firebase.utils";
 
 export const TaskContext = createContext({
   tasks: [],
+  addTask: () => {},
 });
 
 export const TaskProvider = ({ children }) => {
-  const [task, setTasks] = useState({});
+  const [tasks, setTasks] = useState([]);
+  const [addTask, setAddTask] = useState({});
 
   useEffect(() => {
     const todoList = async () => {
@@ -14,10 +16,13 @@ export const TaskProvider = ({ children }) => {
 
       setTasks(lists);
     };
+
     todoList();
   }, []);
 
-  const value = { task };
-
-  return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;
+  return (
+    <TaskContext.Provider value={{ tasks, setTasks }}>
+      {children}
+    </TaskContext.Provider>
+  );
 };

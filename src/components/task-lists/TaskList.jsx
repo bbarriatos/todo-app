@@ -1,15 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./TaskList.css";
-import { TaskContext } from "../../context/TaskContext";
-import Task from "../../routes/task/Task";
 
-const TaskList = () => {
-  const { tasks } = useContext(TaskContext);
-
+const TaskList = ({ tasks }) => {
   return (
     <div className="task-lists">
-      {/* {tasks.length === 0 ? (
+      {tasks.length === 0 ? (
         <h2>No available task</h2>
       ) : (
         tasks.map((taskInfo) => (
@@ -25,7 +21,7 @@ const TaskList = () => {
             </p>
           </Link>
         ))
-      )} */}
+      )}
     </div>
   );
 };

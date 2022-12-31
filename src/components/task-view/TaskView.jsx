@@ -6,28 +6,10 @@ import "./TaskView.css";
 
 const TaskView = () => {
   const { id } = useParams();
-  const { task } = useContext(TaskContext);
 
-  // const taskDetails = task.filter((task) => task.id == id);
+  const { tasks } = useContext(TaskContext);
 
-  // const taskData = () => {
-  //   task.map((data) => {
-  //     return (
-  //       <div key={data.id}>
-  //         <p>
-  //           <strong>ID: </strong> {data.id}
-  //         </p>
-  //         <p>
-  //           <strong>Title: </strong>
-  //           {data.title}
-  //         </p>
-  //         <p>
-  //           <strong>Status: </strong> {String(data.completed)}
-  //         </p>
-  //       </div>
-  //     );
-  //   });
-  // };
+  const item = tasks.filter((data) => data.id == id);
 
   return (
     <div>
@@ -36,7 +18,22 @@ const TaskView = () => {
       ) : (
         <Fragment>
           <h1>Task Details</h1>
-          {/* {taskData} */}
+          {item.map((data) => {
+            return (
+              <div key={data.id}>
+                <p>
+                  <strong>ID: </strong> {data.id}
+                </p>
+                <p>
+                  <strong>Title: </strong>
+                  {data.title}
+                </p>
+                <p>
+                  <strong>Status: </strong> {String(data.completed)}
+                </p>
+              </div>
+            );
+          })}
         </Fragment>
       )}
     </div>

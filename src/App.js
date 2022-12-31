@@ -14,12 +14,7 @@ function App() {
   return (
     <Fragment>
       <Routes>
-        <Route
-          path="/"
-          element={
-            currentUser ? <Header></Header> : <Authentication></Authentication>
-          }
-        >
+        <Route path="/" element={<Header></Header>}>
           <Route index element={<TaskView></TaskView>}></Route>
           <Route path="/:id" element={<TaskView></TaskView>}></Route>
           <Route path="/addTask" element={<AddTask></AddTask>}></Route>
