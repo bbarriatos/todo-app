@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from "react";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { TaskContext } from "../../context/TaskContext";
 import "./TaskView.css";
@@ -31,6 +31,8 @@ const TaskView = () => {
                 <p>
                   <strong>Status: </strong> {String(data.completed)}
                 </p>
+
+                <Link to={`/updateTask/${data.id}`}>Edit</Link>
               </div>
             );
           })}

@@ -7,6 +7,7 @@ import AddTask from "./routes/add-task/AddTask";
 
 import { UserContext } from "./context/UserContext";
 import Authentication from "./routes/authentication/Authentication";
+import UpdateTask from "./routes/update-task/UpdateTask";
 
 function App() {
   const { currentUser } = useContext(UserContext);
@@ -14,10 +15,19 @@ function App() {
   return (
     <Fragment>
       <Routes>
-        <Route path="/" element={<Header></Header>}>
+        <Route
+          path="/"
+          element={
+            currentUser ? <Header></Header> : <Authentication></Authentication>
+          }
+        >
           <Route index element={<TaskView></TaskView>}></Route>
           <Route path="/:id" element={<TaskView></TaskView>}></Route>
           <Route path="/addTask" element={<AddTask></AddTask>}></Route>
+          <Route
+            path="/updateTask/:taskId"
+            element={<UpdateTask></UpdateTask>}
+          ></Route>
         </Route>
       </Routes>
     </Fragment>
