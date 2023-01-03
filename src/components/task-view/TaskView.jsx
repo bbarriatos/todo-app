@@ -1,15 +1,19 @@
 import React, { Fragment, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { TaskContext } from "../../context/TaskContext";
 import "./TaskView.css";
 
 const TaskView = () => {
   const { id } = useParams();
-
-  const { tasks } = useContext(TaskContext);
-
+  const { tasks, deleteTask } = useContext(TaskContext);
   const item = tasks.filter((data) => data.id == id);
+  const navigate = useNavigate();
+
+  const handleDelete = (todoId) => {
+    deleteTask(todoId);
+    navigate('/');
+  }
 
   return (
     <div>
@@ -32,7 +36,8 @@ const TaskView = () => {
                   <strong>Status: </strong> {String(data.completed)}
                 </p>
 
-                <Link to={`/updateTask/${data.id}`}>Edit</Link>
+                <Link to={`/updateTask/${data.id}`}>Edit</Link><br />
+                <button onClick={() => handleDelete(data.id)}>Remove</button>
               </div>
             );
           })}

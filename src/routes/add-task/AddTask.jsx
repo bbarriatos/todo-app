@@ -4,20 +4,27 @@ import { useContext } from "react";
 import { useState } from "react";
 import { TaskContext } from "../../context/TaskContext";
 
+const defaultFormFields = {
+  id: uuidv4(),
+  title: '',
+  userId: '',
+  status: false
+};
+
 const AddTask = () => {
-  const [title, setTitle] = useState("");
+  const [task, setTask] = useState(defaultFormFields);
   const { addTask } = useContext(TaskContext);
 
   const AddTaskToList = (e) => {
     e.preventDefault();
 
-    addTask({
-      completed: false,
-      id: uuidv4(),
-      title: title,
-      userId: 12,
-    });
+    addTask(task)
+    setTask(defaultFormFields)
   };
+
+  const handleChange = (e) =>
+    setTask({ ...task, [e.target.name]: e.target.value });
+
 
   return (
     <div>
@@ -27,8 +34,9 @@ const AddTask = () => {
           <span>Title </span>
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            name="title"
+            value={task.title}
+            onChange={handleChange}
             required
           />
         </div>

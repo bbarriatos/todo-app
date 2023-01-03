@@ -1,34 +1,50 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext} from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { TaskContext } from "../../context/TaskContext";
 
-const UpdateTask = () => {
-  const { taskId } = useParams();
-  const { tasks, setTasks } = useContext(TaskContext);
-  const updateData = tasks.find((task) => task.id == taskId);
-  const [title, setTitle] = useState("");
+const defaultFormFields = {
+  id: '',
+  title: '',
+  userId: ''
+};
 
-  const handleUpdate = async (e) => {
+const UpdateTask = () => {
+  const [task, setTask] = useState(defaultFormFields);
+  const { taskId } = useParams();
+  const navigate = useNavigate();
+  const { tasks, updateTask } = useContext(TaskContext);
+  
+
+  useEffect(() => {
+    const updateData = tasks.find((task) => task.id == parseInt(taskId));
+    if (updateData) {
+      
+      setTask(updateData); 
+    }
+
+  }, [taskId, tasks]);
+
+  const handleUpdate = (e) => {
     e.preventDefault();
 
-    const { title } = title;
-
-    console.log(title);
-    // setTasks(title);
+    updateTask(task)
+    navigate('/');
   };
+
+  const handleChange = (e) =>
+    setTask({ ...task, [e.target.name]: e.target.value });
 
   return (
     <div>
       <h1>Update Task Form</h1>
       <form onSubmit={handleUpdate}>
         <div>
-          <span>Title </span>
+          <span>Title: </span>
           <input
             type="text"
-            value={title?.title}
-            onChange={(e) => setTitle(e.target.value)}
+            name="title"
+            value={task.title}
+            onChange={handleChange}
             required
           />
         </div>
