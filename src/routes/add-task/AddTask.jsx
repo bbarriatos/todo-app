@@ -3,9 +3,10 @@ import React from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import { TaskContext } from "../../context/TaskContext";
+import createNotification from "../../utils/notifications/notification";
 
 const defaultFormFields = {
-  id: uuidv4(),
+  id: '',
   title: '',
   userId: '',
   status: false
@@ -18,8 +19,9 @@ const AddTask = () => {
   const AddTaskToList = (e) => {
     e.preventDefault();
 
-    addTask(task)
-    setTask(defaultFormFields)
+    addTask({...task, id: uuidv4() });
+    createNotification('success');
+    setTask(defaultFormFields);
   };
 
   const handleChange = (e) =>
@@ -43,6 +45,7 @@ const AddTask = () => {
         <br />
         <button type="submit">Submit</button>
       </form>
+
     </div>
   );
 };

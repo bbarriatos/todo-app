@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { TaskContext } from "../../context/TaskContext";
+import createNotification from "../../utils/notifications/notification";
 
 const defaultFormFields = {
   id: '',
@@ -27,7 +28,8 @@ const UpdateTask = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    updateTask(task)
+    updateTask(task);
+    createNotification('info')
     navigate('/');
   };
 
