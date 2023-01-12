@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { TaskContext } from "../../context/TaskContext";
+import createNotification from "../../utils/notifications/notification";
 import "./TaskView.css";
 
 const TaskView = () => {
@@ -12,6 +13,7 @@ const TaskView = () => {
 
   const handleDelete = (todoId) => {
     deleteTask(todoId);
+    createNotification('warning');
     navigate('/');
   }
 
