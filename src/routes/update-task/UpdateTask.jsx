@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { TaskContext } from "../../context/TaskContext";
 
 const defaultFormFields = {
-  id: '',
-  title: '',
-  userId: ''
+  id: "",
+  title: "",
+  userId: "",
 };
 
 const UpdateTask = () => {
@@ -13,22 +13,19 @@ const UpdateTask = () => {
   const { taskId } = useParams();
   const navigate = useNavigate();
   const { tasks, updateTask } = useContext(TaskContext);
-  
 
   useEffect(() => {
     const updateData = tasks.find((task) => task.id == parseInt(taskId));
     if (updateData) {
-      
-      setTask(updateData); 
+      setTask(updateData);
     }
-
   }, [taskId, tasks]);
 
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    updateTask(task)
-    navigate('/');
+    updateTask(task);
+    navigate("/");
   };
 
   const handleChange = (e) =>
