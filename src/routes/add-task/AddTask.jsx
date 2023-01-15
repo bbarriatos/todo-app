@@ -6,10 +6,10 @@ import { TaskContext } from "../../context/TaskContext";
 import createNotification from "../../utils/notifications/notification";
 
 const defaultFormFields = {
-  id: '',
-  title: '',
-  userId: '',
-  status: false
+  id: "",
+  title: "",
+  userId: "",
+  status: false,
 };
 
 const AddTask = () => {
@@ -19,14 +19,13 @@ const AddTask = () => {
   const AddTaskToList = (e) => {
     e.preventDefault();
 
-    addTask({...task, id: uuidv4() });
-    createNotification('success');
+    addTask({ ...task, id: uuidv4() });
+    createNotification("success");
     setTask(defaultFormFields);
   };
 
   const handleChange = (e) =>
     setTask({ ...task, [e.target.name]: e.target.value });
-
 
   return (
     <div>
@@ -45,7 +44,6 @@ const AddTask = () => {
         <br />
         <button type="submit">Submit</button>
       </form>
-
     </div>
   );
 };
