@@ -2,23 +2,21 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import 'react-notifications/lib/notifications.css';
+import "react-notifications/lib/notifications.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { NotificationContainer } from 'react-notifications';
-import { UserProvider } from "./context/UserContext";
-import { TaskProvider } from "./context/TaskContext";
+import { NotificationContainer } from "react-notifications";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <BrowserRouter>
-      <UserProvider>
-        <TaskProvider>
-          <App />
-          <NotificationContainer />
-        </TaskProvider>
-      </UserProvider>
-    </BrowserRouter>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+      <NotificationContainer />
+    </Provider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

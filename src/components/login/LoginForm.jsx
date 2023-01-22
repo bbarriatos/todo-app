@@ -62,10 +62,6 @@ const LoginForm = () => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("context ", currentUser);
-  // });
-
   return (
     <div>
       <h2>Login Form</h2>
@@ -96,8 +92,6 @@ const LoginForm = () => {
       </form>
 
       <button onClick={logGoogleUser}>SignIn with Google Popup</button>
-      <Link to="/signup">Sign Up!</Link>
-      <button onClick={signOutUser}>Sign Out</button>
     </div>
   );
 };

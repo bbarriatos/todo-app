@@ -6,29 +6,28 @@ const addTaskToList = (todoItem, todoToAdd) => {
 };
 
 const updateTaskToList = (todoItem, todoToUpdate) => {
-  const findTask = todoItem.map(todo => {
-    if(todo.id == todoToUpdate.id) {
+  const findTask = todoItem.map((todo) => {
+    if (todo.id == todoToUpdate.id) {
       todo.title = todoToUpdate.title;
     }
 
     return todo;
   });
 
-  return findTask
-}
+  return findTask;
+};
 
 const deleteTaskToList = (todoItem, todoToDelete) => {
-  const findTask = todoItem.filter(todo => todo.id !== todoToDelete);
+  const findTask = todoItem.filter((todo) => todo.id !== todoToDelete);
 
   return findTask;
-
-}
+};
 
 export const TaskContext = createContext({
   tasks: [],
   addTask: () => {},
   updateTask: () => {},
-  deleteTask: () => {}
+  deleteTask: () => {},
 });
 
 export const TaskProvider = ({ children }) => {
@@ -38,6 +37,7 @@ export const TaskProvider = ({ children }) => {
     const todoList = async () => {
       const lists = await getTodoDocument("todos");
 
+      console.log("tests", lists);
       setTasks(lists);
     };
 
@@ -50,11 +50,11 @@ export const TaskProvider = ({ children }) => {
 
   const updateTask = (todoToUpdate) => {
     setTasks(updateTaskToList(tasks, todoToUpdate));
-  }
+  };
 
   const deleteTask = (todoToDelete) => {
     setTasks(deleteTaskToList(tasks, todoToDelete));
-  }
+  };
 
   return (
     <TaskContext.Provider value={{ tasks, addTask, updateTask, deleteTask }}>
