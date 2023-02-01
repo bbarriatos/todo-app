@@ -1,8 +1,8 @@
 import { uuidv4 } from "@firebase/util";
-import React from "react";
-import { useContext } from "react";
-import { useState } from "react";
-import { TaskContext } from "../../context/TaskContext";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addTask } from "../../store/task/taskAction";
 import createNotification from "../../utils/notifications/notification";
 
 const defaultFormFields = {
@@ -13,19 +13,23 @@ const defaultFormFields = {
 };
 
 const AddTask = () => {
-  const [task, setTask] = useState(defaultFormFields);
-  const { addTask } = useContext(TaskContext);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [taskInput, setTaskInput] = useState(defaultFormFields);
 
   const AddTaskToList = (e) => {
     e.preventDefault();
 
-    addTask({ ...task, id: uuidv4() });
+    dispatch(addTask({ ...taskInput, id: uuidv4() }));
+
     createNotification("success");
-    setTask(defaultFormFields);
+    setTaskInput(defaultFormFields);
+
+    navigate("/");
   };
 
   const handleChange = (e) =>
-    setTask({ ...task, [e.target.name]: e.target.value });
+    setTaskInput({ ...taskInput, [e.target.name]: e.target.value });
 
   return (
     <div>
@@ -36,7 +40,7 @@ const AddTask = () => {
           <input
             type="text"
             name="title"
-            value={task.title}
+            value={taskInput.title}
             onChange={handleChange}
             required
           />
