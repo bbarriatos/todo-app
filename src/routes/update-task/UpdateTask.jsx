@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { TaskContext } from "../../context/TaskContext";
+import { selectTask } from "../../store/task/taskSelector";
+import { updateTask } from "../../store/task/taskAction";
 import createNotification from "../../utils/notifications/notification";
 
 const defaultFormFields = {
@@ -12,11 +14,13 @@ const defaultFormFields = {
 const UpdateTask = () => {
   const [task, setTask] = useState(defaultFormFields);
   const { taskId } = useParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { tasks, updateTask } = useContext(TaskContext);
+  const tasks = useSelector(selectTask);
+  // const { tasks, updateTask } = useContext(TaskContext);
 
   useEffect(() => {
-    const updateData = tasks.find((task) => task.id == parseInt(taskId));
+    const updateData = tasks.task.find((task) => task.id == parseInt(taskId));
     if (updateData) {
       setTask(updateData);
     }
@@ -25,7 +29,7 @@ const UpdateTask = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    updateTask(task);
+    dispatch(updateTask(tasks, task));
     createNotification("info");
     navigate("/");
   };

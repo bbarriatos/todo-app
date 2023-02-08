@@ -19,8 +19,26 @@ const removeTask = (taskItems, taskId) => {
   return taskItems;
 };
 
+const editTask = (taskItems, itemToUpdate) => {
+  const findData = taskItems.task.map((task) => {
+    if (task.id == itemToUpdate.id) {
+      task.title = itemToUpdate.title;
+    }
+
+    return task;
+  });
+
+  return findData;
+};
+
 export const deleteTask = (taskItems, taskId) => {
   const newTaskList = removeTask(taskItems, taskId);
 
   return createAction(TASK_ACTION_TYPES.DELETE_TASK, newTaskList);
+};
+
+export const updateTask = (taskItems, itemToUpdate) => {
+  const newTaskList = editTask(taskItems, itemToUpdate);
+
+  return createAction(TASK_ACTION_TYPES.UPDATE_TASK, newTaskList);
 };
