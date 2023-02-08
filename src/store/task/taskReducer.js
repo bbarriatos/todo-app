@@ -13,6 +13,9 @@ export const taskReducer = (state = INITIAL_STATE, action) => {
     case TASK_ACTION_TYPES.ADD_TASK:
       state.task.push(payload);
       return state;
+    case TASK_ACTION_TYPES.DELETE_TASK:
+      console.log("test", payload);
+      return { ...state, task: payload };
     default:
       return state;
   }

@@ -1,21 +1,24 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { TaskContext } from "../../context/TaskContext";
+import { deleteTask } from "../../store/task/taskAction";
+import { selectTask } from "../../store/task/taskSelector";
 import createNotification from "../../utils/notifications/notification";
 import "./TaskView.css";
 
 const TaskView = () => {
   const { id } = useParams();
-  const { tasks, deleteTask } = useContext(TaskContext);
-  const item = tasks.filter((data) => data.id == id);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const tasks = useSelector(selectTask);
+  const item = tasks.task.filter((data) => data.id == id);
 
-  const handleDelete = (todoId) => {
-    deleteTask(todoId);
-    createNotification('warning');
-    navigate('/');
-  }
+  const handleDelete = (todoData, todoId) => {
+    dispatch(deleteTask(todoData, todoId));
+    createNotification("warning");
+    navigate("/");
+  };
 
   return (
     <div>
@@ -38,8 +41,11 @@ const TaskView = () => {
                   <strong>Status: </strong> {String(data.completed)}
                 </p>
 
-                <Link to={`/updateTask/${data.id}`}>Edit</Link><br />
-                <button onClick={() => handleDelete(data.id)}>Remove</button>
+                <Link to={`/updateTask/${data.id}`}>Edit</Link>
+                <br />
+                <button onClick={() => handleDelete(tasks, data.id)}>
+                  Remove
+                </button>
               </div>
             );
           })}
