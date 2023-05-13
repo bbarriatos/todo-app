@@ -5,7 +5,6 @@ import "./TaskView.css";
 const TaskView = () => {
   const { id } = useParams();
 
-  console.log("test", id);
   return (
     <div className="task-view">
       {id === undefined ? (
