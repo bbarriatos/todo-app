@@ -5,7 +5,7 @@
 }
 
 .task-lists > .task {
-    display: inline-block;
+    display: block;
     background-color: #fff;
 }
 
