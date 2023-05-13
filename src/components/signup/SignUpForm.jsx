@@ -34,6 +34,7 @@ const SignUpForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const {
       displayName: username,
       email: user_email,
